@@ -1,13 +1,38 @@
-import React from 'react';
+import React, { createContext, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+export const AuthContext = createContext();
+
+function AuthContextProvider ({children}){
+
+  const [auth,setAuth] = useState(false)
+
+  const hndlauth =(state) => { setAuth(state)}
+
+
+  return (
+
+    <AuthContext.Provider value={[auth,hndlauth]}>     
+      {children}
+    </AuthContext.Provider>
+
+  ); 
+
+
+}
+
+
+
 root.render(
   <React.StrictMode>
-    <App />
+    <AuthContextProvider>
+      <App />
+    </AuthContextProvider>
   </React.StrictMode>
 );
 
